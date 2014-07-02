@@ -521,6 +521,26 @@ NSString *const kGPUImageYUVVideoRangeConversionForLAFragmentShaderString = SHAD
     return [GPUImageVideoCamera isFrontFacingCameraPresent];
 }
 
+- (void)setHighFrameRateIfPossible
+{
+    for(AVCaptureDeviceFormat *vFormat in [_inputCamera formats] )
+    {
+        CMFormatDescriptionRef description= vFormat.formatDescription;
+        float maxrate=((AVFrameRateRange*)[vFormat.videoSupportedFrameRateRanges objectAtIndex:0]).maxFrameRate;
+        
+        if(maxrate>59 && CMFormatDescriptionGetMediaSubType(description)==kCVPixelFormatType_420YpCbCr8BiPlanarFullRange)
+        {
+            if ( YES == [_inputCamera lockForConfiguration:NULL] )
+            {
+                //                _inputCamera.activeFormat = vFormat;
+                [_inputCamera setActiveVideoMinFrameDuration:CMTimeMake(10,600)];
+                [_inputCamera setActiveVideoMaxFrameDuration:CMTimeMake(10,600)];
+                [_inputCamera unlockForConfiguration];
+            }
+        }
+    }
+}
+
 - (void)setCaptureSessionPreset:(NSString *)captureSessionPreset;
 {
 	[_captureSession beginConfiguration];
