@@ -532,7 +532,7 @@ NSString *const kGPUImageYUVVideoRangeConversionForLAFragmentShaderString = SHAD
         {
             if ( YES == [_inputCamera lockForConfiguration:NULL] )
             {
-                //                _inputCamera.activeFormat = vFormat;
+                 _inputCamera.activeFormat = vFormat;
                 [_inputCamera setActiveVideoMinFrameDuration:CMTimeMake(10,600)];
                 [_inputCamera setActiveVideoMaxFrameDuration:CMTimeMake(10,600)];
                 [_inputCamera unlockForConfiguration];
