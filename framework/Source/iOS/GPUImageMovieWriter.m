@@ -187,7 +187,9 @@ NSString *const kGPUImageColorSwizzlingFragmentShaderString = SHADER_STRING
     }
     
     // Set this to make sure that a functional movie is produced, even if the recording is cut off mid-stream. Only the last second should be lost in that case.
-    assetWriter.movieFragmentInterval = CMTimeMakeWithSeconds(1.0, 1000);
+    if(fileType != AVFileTypeMPEG4){
+        assetWriter.movieFragmentInterval = CMTimeMakeWithSeconds(1.0, 1000);
+    }
     
     // use default output settings if none specified
     if (outputSettings == nil)
