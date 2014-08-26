@@ -258,7 +258,6 @@ NSString *const kGPUImageColorSwizzlingFragmentShaderString = SHADER_STRING
 - (void)startRecording;
 {
     alreadyFinishedRecording = NO;
-    isRecording = YES;
     _paused = NO;
     
     startTime = kCMTimeInvalid;
@@ -268,6 +267,8 @@ NSString *const kGPUImageColorSwizzlingFragmentShaderString = SHADER_STRING
             [assetWriter startWriting];
         }
     });
+    
+    isRecording = YES;
 	//    [assetWriter startSessionAtSourceTime:kCMTimeZero];
 }
 
